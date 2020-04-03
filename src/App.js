@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, SafeAreaView, Button, StyleSheet, Alert, Text, FlatList, ScrollView } from 'react-native';
-
 import io from 'socket.io-client';
 import {
   RTCPeerConnection,
@@ -10,10 +9,11 @@ import {
   RTCIceCandidate
 } from 'react-native-webrtc';
 
+import WEBRTC_CONFIG from "./iceServers"; 
 //const API = "http://192.168.1.100:5000";
 const API = "https://web-rtc-prototype.herokuapp.com/";
 
-const RTC_CONF = { iceServers: [{ url: 'stun:stun.l.google.com:19302' }] };
+
 
 console.log(`API URL ${API};`);
 
@@ -162,7 +162,7 @@ export default function App() {
       audio: true,
       video: {
         mandatory: {
-          minWidth: 500, // Provide your own width, height and frame rate here
+          minWidth: 500, 
           minHeight: 300,
           minFrameRate: 30,
         },
@@ -172,7 +172,7 @@ export default function App() {
     };
     const newStream = await mediaDevices.getUserMedia(constraints);
     setLocalStream(newStream);
-    const peerCon = new RTCPeerConnection(RTC_CONF);
+    const peerCon = new RTCPeerConnection(WEBRTC_CONFIG);
     peerCon.addStream(newStream);
 
     setPc(peerCon);
